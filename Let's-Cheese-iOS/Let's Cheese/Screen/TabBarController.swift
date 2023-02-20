@@ -36,14 +36,6 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
         
-        for family in UIFont.familyNames {
-          print(family)
-
-          for sub in UIFont.fontNames(forFamilyName: family) {
-            print("====> \(sub)")
-          }
-        }
-        
         setUpTabBar()
     }
     
