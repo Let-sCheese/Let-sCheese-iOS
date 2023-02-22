@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class selectView: UIView {
+class SelectView: UIView {
     
     let quizImage : UIImageView = {
         let imageView = UIImageView()

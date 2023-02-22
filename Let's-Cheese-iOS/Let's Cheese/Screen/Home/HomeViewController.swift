@@ -111,19 +111,16 @@ class HomeViewController:UIViewController {
     //MARK: - @objc
     
     @objc func quizButtonDidTap(){
-        let quizViewController = StudyViewController()
         guard let tabBarController = self.tabBarController else { return }
         tabBarController.selectedIndex = 1
     }
     
     @objc func practiceButtonDidTap(){
-        let practiceViewController = PracticeViewController()
         guard let tabBarController = self.tabBarController else { return }
         tabBarController.selectedIndex = 2
     }
     
     @objc func galleryButtonDidTap(){
-        let galleryViewController = PictureViewController()
         guard let tabBarController = self.tabBarController else { return }
         tabBarController.selectedIndex = 3
     }
