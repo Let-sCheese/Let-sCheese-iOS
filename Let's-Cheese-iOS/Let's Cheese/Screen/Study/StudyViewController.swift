@@ -20,8 +20,8 @@ class StudyViewController:UIViewController {
         return label
     }()
     
-    let numView = numberView()
-    let emotionView = selectView()
+    let numView = NumberView()
+    let emotionView = SelectView()
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -31,6 +31,7 @@ class StudyViewController:UIViewController {
         setLayout()
     }
     
+    //MARK: - Function
     func setViewHierarchy(){
         view.addSubview(quizLabel)
         view.addSubview(numView)
@@ -52,8 +53,14 @@ class StudyViewController:UIViewController {
         emotionView.snp.makeConstraints { make in
             make.top.equalTo(numView.snp.bottom)
             make.width.equalToSuperview()
-            make.bottom.equalTo(view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
         }
     }
+    
+    func setButtonEvent(){
+        
+    }
+    
+    //MARK: - @objc
 }
 

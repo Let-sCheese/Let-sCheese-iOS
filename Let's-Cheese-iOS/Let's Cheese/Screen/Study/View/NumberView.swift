@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class numberView: UIView {
+class NumberView: UIView {
 
     let one : UILabel = {
         let label = UILabel()

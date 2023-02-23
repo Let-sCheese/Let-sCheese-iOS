@@ -11,7 +11,7 @@ import UIKit
 class TabBarController: UITabBarController {
     
     let homeVC = HomeViewController()
-    let studyVC = StudyViewController()
+    let studyVC = StudyStartViewController()
     let practiceVC = PracticeViewController()
     let pictureVC = PictureViewController()
     
