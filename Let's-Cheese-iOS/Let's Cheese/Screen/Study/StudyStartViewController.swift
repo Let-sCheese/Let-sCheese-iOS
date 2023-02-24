@@ -98,8 +98,8 @@ class StudyStartViewController:UIViewController {
     }
     
     @objc func touchBackButtonEvent(){
-        guard let tabBarController = self.tabBarController else { return }
-        tabBarController.selectedIndex = 0
+        let nextVC = TabBarController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
