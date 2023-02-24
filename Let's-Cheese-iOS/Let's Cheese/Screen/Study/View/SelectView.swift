@@ -20,7 +20,7 @@ class SelectView: UIView {
         return imageView
     }()
     
-    private let firstEmotionButton : UIButton = {
+    let firstEmotionButton : UIButton = {
         let btn = UIButton()
         btn.setTitle("감정 1", for: .normal)
         btn.titleLabel?.font = .bodyLarge
@@ -30,7 +30,7 @@ class SelectView: UIView {
         return btn
     }()
     
-    private let secondEmotionButton : UIButton = {
+    let secondEmotionButton : UIButton = {
         let btn = UIButton()
         btn.setTitle("감정 2", for: .normal)
         btn.titleLabel?.font = .bodyLarge
@@ -41,7 +41,7 @@ class SelectView: UIView {
         return btn
     }()
     
-    private let thirdEmotionButton : UIButton = {
+    let thirdEmotionButton : UIButton = {
         let btn = UIButton()
         btn.setTitle("감정 3", for: .normal)
         btn.titleLabel?.font = .bodyLarge
@@ -52,7 +52,7 @@ class SelectView: UIView {
         return btn
     }()
     
-    private let fourthEmotionButton : UIButton = {
+    let fourthEmotionButton : UIButton = {
         let btn = UIButton()
         btn.setTitle("감정 4", for: .normal)
         btn.titleLabel?.font = .bodyLarge
@@ -79,7 +79,7 @@ class SelectView: UIView {
         return stackView
     }()
     
-    private let nextButton : UIButton = {
+    let nextButton : UIButton = {
         let btn = UIButton()
         btn.setTitle("다음", for: .normal)
         btn.titleLabel?.font = .bodyLarge

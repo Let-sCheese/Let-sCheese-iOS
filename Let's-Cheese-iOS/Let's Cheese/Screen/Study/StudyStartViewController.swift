@@ -41,6 +41,7 @@ class StudyStartViewController:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        setNavigationController()
         setViewHierarchy()
         setLayout()
         setButtonEvent()
@@ -81,8 +82,17 @@ class StudyStartViewController:UIViewController {
         backButton.addTarget(self, action: #selector(touchBackButtonEvent), for: .touchUpInside)
     }
     
+    func setNavigationController(){
+        let backButton = UIBarButtonItem()
+        backButton.title = "감정학습 퀴즈"
+        self.navigationController?.navigationBar.tintColor = UIColor.text1
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+//        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     //MARK: - @objc
     @objc func startQuizEvent(){
+        StudyViewController.countPage = 0
         let nextVC = StudyViewController()
         navigationController?.pushViewController(nextVC, animated: true)
     }

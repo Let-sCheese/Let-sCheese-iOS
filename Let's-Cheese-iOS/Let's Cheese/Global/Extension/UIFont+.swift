@@ -22,6 +22,9 @@ extension UIFont {
     static var headLine: UIFont {
         return font(.headline, ofSize: 28)
     }
+    static var score: UIFont {
+        return font(.headline, ofSize: 170)
+    }
     // MARK: - Title
     static var titleLarge: UIFont {
         return font(.title, ofSize: 22)
