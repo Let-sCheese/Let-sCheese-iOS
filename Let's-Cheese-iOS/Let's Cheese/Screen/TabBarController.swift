@@ -12,7 +12,7 @@ class TabBarController: UITabBarController {
     
     let homeVC = HomeViewController()
     let studyVC = StudyStartViewController()
-    let practiceVC = PracticeViewController()
+    let practiceVC = PracticeStartViewController()
     let pictureVC = PictureViewController()
     
     // 탭바 터치 바운스 이벤트

@@ -45,6 +45,7 @@ class PracticeStartViewController:UIViewController {
         setViewHierarchy()
         setLayout()
         setButtonEvent()
+        setNavigationController()
     }
     
     //MARK: - Function
@@ -82,6 +83,13 @@ class PracticeStartViewController:UIViewController {
         backButton.addTarget(self, action: #selector(touchBackButtonEvent), for: .touchUpInside)
     }
     
+    func setNavigationController(){
+        let backButton = UIBarButtonItem()
+        backButton.title = "표정 연습"
+        self.navigationController?.navigationBar.tintColor = UIColor.text1
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
+    
     //MARK: - @objc
     @objc func startPracticeEvent(){
         let nextVC = PracticeViewController()
@@ -89,8 +97,8 @@ class PracticeStartViewController:UIViewController {
     }
     
     @objc func touchBackButtonEvent(){
-        guard let tabBarController = self.tabBarController else { return }
-        tabBarController.selectedIndex = 0
+        let nextVC = TabBarController()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
 
