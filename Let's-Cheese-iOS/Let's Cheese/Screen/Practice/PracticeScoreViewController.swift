@@ -1,15 +1,15 @@
 //
-//  ScoreViewController.swift
+//  PracticeScoreViewController.swift
 //  Let's Cheese
 //
-//  Created by 박윤빈 on 2023/02/24.
+//  Created by 박윤빈 on 2023/02/27.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class ScoreViewController:UIViewController {
+class PracticeScoreViewController:UIViewController {
     
     //MARK: - UIComponent
     private let myScoreLabel : UILabel = {
@@ -114,7 +114,7 @@ class ScoreViewController:UIViewController {
     
     //MARK: - @objc
     @objc func retryButtonTapEvent(){
-        let nextVC = StudyStartViewController()
+        let nextVC = PracticeStartViewController()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -124,3 +124,4 @@ class ScoreViewController:UIViewController {
     }
     
 }
+

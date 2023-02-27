@@ -58,7 +58,6 @@ class StudyStartViewController:UIViewController {
         startLabel.snp.makeConstraints { make in
             make.bottom.equalTo(startButton.snp.top).offset(-165)
             make.centerX.equalToSuperview()
-
         }
         
         startButton.snp.makeConstraints { make in
@@ -66,7 +65,6 @@ class StudyStartViewController:UIViewController {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(75)
-
         }
         
         backButton.snp.makeConstraints { make in
