@@ -86,7 +86,7 @@ class StudyViewController:UIViewController {
         let alert = UIAlertController(title: "퀴즈를 제출할까요?", message: "퀴즈를 제출하면 답안을 수정할 수 없어요. 제출하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
 
         let accecptAction = UIAlertAction(title: "네", style: .default, handler: { okAction in
-            let nextVC = ScoreViewController()
+            let nextVC = StudyScoreViewController()
             self.navigationController?.pushViewController(nextVC, animated: true)
         })
         

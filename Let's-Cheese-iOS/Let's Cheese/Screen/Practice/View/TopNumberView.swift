@@ -81,6 +81,15 @@ class TopNumberView: UIView {
         label.textColor = .text1
         return label
     }()
+    
+    let topLabel : UILabel = {
+        let label = UILabel()
+        label.text = "단어에 제시된 표정처럼 사진을 찍어봐!"
+        label.textColor = .text1
+        label.font = .bodyLarge
+        return label
+    }()
+    
     let emotionLabel : UILabel = {
         let label = UILabel()
         label.text = "웃다"
@@ -93,6 +102,15 @@ class TopNumberView: UIView {
         return label
     }()
     
+    let photoView : UIImageView = {
+        let imageView = UIImageView()
+//        imageView.image = UIImage(named: "smilePicture.jpg")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.isHidden = true
+        return imageView
+    }()
+    
     lazy var numStackView : UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [one,two,three,four,five,six,seven,eight,nine,ten])
         stackView.axis = .horizontal
@@ -102,9 +120,18 @@ class TopNumberView: UIView {
     }()
     
     lazy var textStackView : UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [numStackView,emotionLabel])
+        let stackView = UIStackView(arrangedSubviews: [numStackView,topLabel,emotionLabel])
         stackView.axis = .vertical
-        stackView.spacing = 27
+        stackView.spacing = 60
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    lazy var globalStackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [textStackView,photoView])
+        stackView.axis = .vertical
+        stackView.spacing = 24
         stackView.alignment = .center
         return stackView
     }()
@@ -120,18 +147,24 @@ class TopNumberView: UIView {
     }
     
     func setViewHierarchy(){
-        self.addSubview(textStackView)
+        self.addSubview(globalStackView)
     }
     
     func setLayout(){
-        textStackView.snp.makeConstraints { make in
+        globalStackView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(26)
             make.centerX.equalToSuperview()
         }
         
         emotionLabel.snp.makeConstraints { make in
-            make.height.equalTo(60)
-            make.width.equalTo(200)
+            make.height.equalTo(189)
+            make.leading.equalToSuperview().offset(24)
+            make.trailing.equalToSuperview().offset(-24)
+        }
+        
+        photoView.snp.makeConstraints { make in
+            make.height.equalTo(326)
+            make.width.equalTo(343)
         }
     }
 }

@@ -11,8 +11,12 @@ import SnapKit
 
 class PracticeViewController:UIViewController {
     
+    //MARK: - Properties
     static var countPage = 0
-    private var isButtonTap = false
+    static var isButtonTap = false
+    static var isPictureTaken = false
+    
+    //MARK: - UI Component
     lazy var labelArr: [UILabel] = [
         topNumberView.one,
         topNumberView.two,
@@ -26,14 +30,6 @@ class PracticeViewController:UIViewController {
         topNumberView.ten,
     ]
     
-    private let photoView : UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "smilePicture.jpg")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
     private let takePhotoButton : UIButton = {
         let btn = UIButton()
         btn.setTitle("촬영하러 가기", for: .normal)
@@ -42,6 +38,15 @@ class PracticeViewController:UIViewController {
         btn.layer.cornerRadius = 20
         btn.titleLabel?.font = .bodyLarge
         return btn
+    }()
+    
+    lazy var camera : UIImagePickerController = {
+        let camera = UIImagePickerController()
+        camera.sourceType = .camera
+        camera.allowsEditing = true
+        camera.cameraDevice = .front
+        camera.delegate = self
+        return camera
     }()
     
     private let topNumberView = TopNumberView()
@@ -53,28 +58,28 @@ class PracticeViewController:UIViewController {
         setNavigationController()
         setViewHierarchy()
         setLayout()
+        setButtonEvent()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ifPhotoTaken()
     }
     
     //MARK: - Function
     
     func setViewHierarchy(){
         view.addSubview(topNumberView)
-        view.addSubview(photoView)
         view.addSubview(takePhotoButton)
     }
     
     func setLayout(){
+        
         topNumberView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(106)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(110)
-        }
-        
-        photoView.snp.makeConstraints { make in
-            make.top.equalTo(topNumberView.emotionLabel.snp.bottom).offset(24)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(326)
-            make.width.equalTo(343)
+            make.leading.equalToSuperview().offset(24)
+            make.trailing.equalToSuperview().offset(-24)
+            make.bottom.equalTo(takePhotoButton).offset(-50)
         }
         
         takePhotoButton.snp.makeConstraints { make in
@@ -86,7 +91,7 @@ class PracticeViewController:UIViewController {
     }
     
     func setButtonEvent(){
-
+        takePhotoButton.addTarget(self, action: #selector(takePictureButtonTapEvent), for: .touchUpInside)
     }
     
     func setNavigationController(){
@@ -108,11 +113,51 @@ class PracticeViewController:UIViewController {
         button.layer.borderColor = UIColor.primary2.cgColor
     }
     
+    func ifPhotoTaken(){
+        if(PracticeViewController.isPictureTaken){
+            afterTakePictureLayout()
+        }
+    }
+    
+    func numberChange(){
+        if(StudyViewController.countPage == 10){
+            StudyViewController.countPage = 0
+            submitQuiz()
+        } else{
+            labelArr[StudyViewController.countPage].textColor = .primary1
+            labelArr[StudyViewController.countPage-1].textColor = .text1
+            PracticeViewController.isButtonTap = false
+        }
+    }
+    
+    func beforeTakePictureLayout(){
+        topNumberView.photoView.isHidden = true
+        topNumberView.textStackView.spacing = 60
+        topNumberView.topLabel.isHidden = false
+        topNumberView.emotionLabel.snp.remakeConstraints { make in
+            make.height.equalTo(189)
+            make.leading.equalToSuperview().offset(24)
+            make.trailing.equalToSuperview().offset(-24)
+        }
+        takePhotoButton.setTitle("촬영하러 가기", for: .normal)
+    }
+    
+    func afterTakePictureLayout(){
+        topNumberView.photoView.isHidden = false
+        topNumberView.textStackView.spacing = 30
+        topNumberView.topLabel.isHidden = true
+        topNumberView.emotionLabel.snp.remakeConstraints { make in
+            make.height.equalTo(60)
+            make.width.equalTo(199)
+        }
+        takePhotoButton.setTitle("다음", for: .normal)
+    }
+    
     func submitQuiz(){
         let alert = UIAlertController(title: "퀴즈를 제출할까요?", message: "퀴즈를 제출하면 답안을 수정할 수 없어요. 제출하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
-
+        
         let accecptAction = UIAlertAction(title: "네", style: .default, handler: { okAction in
-            let nextVC = ScoreViewController()
+            let nextVC = PracticeScoreViewController()
             self.navigationController?.pushViewController(nextVC, animated: true)
         })
         
@@ -124,41 +169,34 @@ class PracticeViewController:UIViewController {
         alert.addAction(accecptAction)
         present(alert, animated: true, completion: nil)
     }
-    
-    func showToast(message : String, font: UIFont) {
-            let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
-            toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-            toastLabel.textColor = UIColor.white
-            toastLabel.font = font
-            toastLabel.textAlignment = .center;
-            toastLabel.text = message
-            toastLabel.alpha = 1.0
-            toastLabel.layer.cornerRadius = 10;
-            toastLabel.clipsToBounds  =  true
-            self.view.addSubview(toastLabel)
-            UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
-                 toastLabel.alpha = 0.0
-            }, completion: {(isCompleted) in
-                toastLabel.removeFromSuperview()
-            })
-        }
+
     
     //MARK: - @objc
-    
-    @objc func nextButtonTapEvent(){
-        if(isButtonTap){
-            StudyViewController.countPage+=1
-            
-            if(StudyViewController.countPage == 10){
-                StudyViewController.countPage = 0
-                submitQuiz()
-            } else{
-                labelArr[StudyViewController.countPage].textColor = .primary1
-                labelArr[StudyViewController.countPage-1].textColor = .text1
-                isButtonTap = false
-            }
+    @objc func takePictureButtonTapEvent(){
+        if(!PracticeViewController.isPictureTaken){
+            present(camera, animated: true, completion: nil)
+            PracticeViewController.isPictureTaken = true
         } else{
-            showToast(message: "사진을 찍어주세요!", font: .bodyLarge)
+            StudyViewController.countPage+=1
+            beforeTakePictureLayout()
+            numberChange()
+            PracticeViewController.isPictureTaken = false
         }
+    }
+}
+    //MARK: - UIImagePicker Extension
+extension PracticeViewController : UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
+            topNumberView.photoView.image = image
+            PracticeViewController.isPictureTaken = true
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        PracticeViewController.isPictureTaken = false
+        picker.dismiss(animated: true, completion: nil)
+        
     }
 }
