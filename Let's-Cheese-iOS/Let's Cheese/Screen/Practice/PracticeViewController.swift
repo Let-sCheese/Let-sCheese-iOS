@@ -181,6 +181,9 @@ class PracticeViewController:UIViewController {
             beforeTakePictureLayout()
             numberChange()
             PracticeViewController.isPictureTaken = false
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
         }
     }
 }
