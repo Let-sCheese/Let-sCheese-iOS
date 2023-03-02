@@ -11,7 +11,7 @@ import SnapKit
 import PhotosUI
 
 class PictureViewController:UIViewController {
-    
+    //MARK: - Properties
     var itemProviders: [NSItemProvider] = []
     static var imageArray : [UIImage] = []
 
