@@ -50,7 +50,6 @@ class StudyViewController:UIViewController {
     }
     
     func setLayout(){
-
         numView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(106)
             make.height.equalTo(100)

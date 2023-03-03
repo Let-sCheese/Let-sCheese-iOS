@@ -102,17 +102,6 @@ class PracticeViewController:UIViewController {
         self.navigationController?.navigationBar.isHidden = false
     }
     
-    func buttonOn(button: UIButton){
-        button.backgroundColor = .primary4
-        button.layer.borderColor = UIColor.primary2.cgColor
-        button.layer.borderWidth = 2
-    }
-    
-    func buttonOff(button: UIButton){
-        button.backgroundColor = .primary2
-        button.layer.borderColor = UIColor.primary2.cgColor
-    }
-    
     func ifPhotoTaken(){
         if(PracticeViewController.isPictureTaken){
             afterTakePictureLayout()
@@ -170,7 +159,6 @@ class PracticeViewController:UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    
     //MARK: - @objc
     @objc func takePictureButtonTapEvent(){
         if(!PracticeViewController.isPictureTaken){
@@ -200,6 +188,43 @@ extension PracticeViewController : UIImagePickerControllerDelegate,UINavigationC
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         PracticeViewController.isPictureTaken = false
         picker.dismiss(animated: true, completion: nil)
-        
     }
 }
+
+////MARK: - 뭐라는거야
+//
+//import Moya
+//
+//let PROJECT_ID = "your-project-id"
+//let ENDPOINT_ID = "your-endpoint-id"
+//let INPUT_DATA_FILE = "path/to/your/input/file.json"
+//let authToken = ProcessInfo.processInfo.environment["ACCESS_TOKEN"] ?? ""
+//let headers = [
+//    "Authorization": "Bearer \(authToken)",
+//    "Content-Type": "application/json"
+//]
+//let endpointClosure = { (target: TargetType) -> Endpoint in
+//    let url = target.baseURL.appendingPathComponent(target.path).absoluteString
+//    return Endpoint(
+//        url: url,
+//        sampleResponseClosure: { .networkResponse(200, target.sampleData) },
+//        method: target.method,
+//        task: target.task,
+//        httpHeaderFields: headers
+//    )
+//}
+//let provider = MoyaProvider<MultiTarget>(endpointClosure: endpointClosure)
+//let target = MultiTarget(
+//    Endpoint.url("https://us-central1-aiplatform.googleapis.com/v1/projects/\(PROJECT_ID)/locations/us-central1/endpoints/\(ENDPOINT_ID):predict"),
+//    method: .post,
+//    task: .uploadFile(URL(fileURLWithPath: INPUT_DATA_FILE)),
+//    headers: headers
+//)
+//provider.request(target) { result in
+//    switch result {
+//    case let .success(response):
+//        print(String(data: response.data, encoding: .utf8) ?? "Data could not be printed")
+//    case let .failure(error):
+//        print(error.localizedDescription)
+//    }
+//}
